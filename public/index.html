@@ -1,0 +1,1355 @@
+<!DOCTYPE html>
+<!--
+  Firebase Authentication User Interface with Google Material Components
+  Copyright 2017 Ron Royston All rights reserved.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      https://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License
+-->
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <title>Firebase Authentication User Interface + Google Material Components</title>
+        <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,700,900" rel="stylesheet">
+        <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" href="//unpkg.com/material-components-web@latest/dist/material-components-web.min.css">
+        <link rel="stylesheet" href="style.css">
+        <style>
+          html {
+              margin: 0;
+              padding: 0;
+              font-family: 'Roboto', sans-serif;
+              font-weight:400;    
+          }
+          body {
+              font-family: 'Roboto', sans-serif;
+              font-weight:400;
+              margin: 0;
+              padding: 24px;
+          }
+          body > header {
+              background-color: rgba(250, 250, 250, 0.2);
+              min-width:280px;
+              max-width:100%;
+          }
+          body > main {
+              min-width:280px;
+              max-width:100%;
+          }
+          
+          .account-register {
+              margin-left: 6px;
+              margin-right: 6px;
+          }
+          .blue{
+              background:blue;
+          }
+          .border{
+              border:1px dotted red;
+          }
+          .bold{
+              font-weight:700;
+          }
+          .clean-anchor{
+              text-decoration:none;
+              color:#0d47a1;
+              font-weight:700;
+          }
+          .code{
+              font-family: "Courier New", Courier, monospace;
+              font-weight:bold;
+          }
+          .column{
+              flex-flow: column wrap;
+          }
+          .edit-icons{
+              opacity:.2;
+              transition: .2s ease-in-out;
+          }
+          .flex {
+              display: flex;
+          }
+          .flex-center{
+              justify-content:center;
+              align-content: center;
+              align-items: center; 
+          }
+          .flex-end{
+              justify-content:flex-end;
+              align-content: center;
+              align-items: center; 
+          }
+          .flex-start{
+              justify-content:flex-start;
+              align-content: center;
+              align-items: center; 
+          }
+          .float-right {
+              float: right;
+          }
+          .footnote{
+              font-size:.8em;
+          }
+          .full-width{
+              min-width: 100%;
+          }
+          .half-width{
+              width:50%;
+              min-width:50%;
+          }
+          .hidden {
+              display: none;
+          }
+          .inline{
+              display:inline;
+          }
+          .item{
+              flex: 0 1 auto;
+              align-self: auto;
+          }
+          .item-start{
+              flex: 0 1 auto;
+              align-self:flex-start;
+          }
+          .items-start{
+              justify-content:center;
+              align-content: center;
+              align-items: flex-start;
+          }
+          .item-stretch{
+              flex: 1 1 auto;
+              align-self: auto;
+          }
+          .large-font{
+              font-size:1.5em;
+          }
+          .mdc-dialog__surface{
+              max-width:420px;
+          }
+          .profile-anchor{
+              font-size:2em;
+              line-height:40px;
+              font-weight:400;
+          }
+          .property{
+            height:0px;
+            overflow: hidden;
+            transition: .2s ease-in-out;
+            font-size:0em;
+            line-height:100%;
+          }
+          .property-show{
+            height:auto;
+            /*overflow:initial;*/
+            overflow:auto;
+            padding-top:8px;
+            padding-bottom:8px;
+            font-size:.88em;
+          }
+          .provider {
+              flex: 0 1 auto;
+              align-self: auto;
+              width: 256px;
+              height: 48px;
+              margin-top: 12px;
+              margin-right: 12px;
+              text-align: center;
+              line-height: 48px;
+              color: #fafafa;
+              text-transform: uppercase;
+              background-size: contain;
+              background-repeat: no-repeat;
+              background-position: 10%;
+          }
+          .provider:hover {
+              cursor: pointer;
+          }
+          .red-text{
+              color:#f44336;
+          }
+          .row{
+              flex-flow: row wrap;
+          }
+          .row-reverse{
+              flex-flow: row-reverse;
+          }
+          .social-bar {
+              justify-content: flex-start;
+              align-content: flex-start;
+              align-items: flex-start;
+              margin-top:48px;
+              max-width:100%;
+          }
+          .social-bar > div {
+              margin:4px;
+          }
+          
+          #account-dialog > .mdc-textfield {
+              max-width: 256px;
+          }
+          #account-section:hover {
+              cursor: pointer;
+          }
+          #account-section-image{
+              height: 30px;
+              width: 30px;
+              background-image: url(//www.gravatar.com/avatar/);
+              background-size: contain;
+              background-repeat: no-repeat;
+              background-position: center;
+              border-radius:50%;
+              flex: 1 1 auto;
+              align-self: auto;
+          }
+          #account-section-text{
+              line-height: 30px;
+              margin-left:8px;
+          }
+          #account-settings-open{
+              border-radius: 50%;
+          }
+          #account-settings-open:hover{
+              cursor:pointer;
+          }
+          #display-image-div{
+              flex: 0 1 auto;
+              align-self: auto;
+              width: 96px;
+              height: 96px;
+              background-size:96px 96px;
+              background-position: center;
+              border-radius:50%;
+          }
+          #email {
+              background-color: #4caf50;
+              background-image: url("https://rack.pub/media/gmail.svg");
+          }
+          #facebook {
+              background-color: #3B5998;
+              background-image: url("https://rack.pub/media/facebook.svg");
+          }
+          #google {
+              background-color: #DB4937;
+              background-image: url("https://rack.pub/media/googleplus.svg");
+          }
+          #left-section{
+              flex: 0 1 auto;
+              align-self: auto;
+          }
+          #menu {
+              background: url("https://rack.pub/media/menu.svg") center / cover;
+              height: 30px;
+              width: 30px;
+              min-height:30px;
+              min-width:30px;
+              display:inline-block;
+          }
+          #menu:hover{
+              cursor:pointer;
+          }
+          #name-div{
+              text-align:center;
+              margin:0px;
+          }
+          #registration>.mdc-textfield {
+              margin-left: 16px;
+              margin-right: 16px;
+          }
+          #sub-heading{
+              margin-top:0px;
+              margin-bottom:0px;
+          }
+          #title{
+              /*height:30px;*/
+          }
+          #title-right{
+              margin-left:12px;
+              justify-content: flex-start;
+              align-content: center;
+              align-items: flex-start;    
+          }
+          #twitter {
+              background-color: #1DA1F2;
+              background-image: url("https://rack.pub/media/twitter.svg");
+          }
+        </style>
+    </head>
+    
+    <body class="flex column flex-start">
+        <script>
+        	//Facebook API
+        	window.fbAsyncInit = function() {
+        		FB.init({
+        			appId: '796465480506161',
+        			xfbml: true,
+        			version: 'v2.9'
+        		});
+        		FB.AppEvents.logPageView();
+        	};
+        	(function(d, s, id){
+        		var js, fjs = d.getElementsByTagName(s)[0];
+        		if (d.getElementById(id)) {return;}
+        		js = d.createElement(s); 
+        		js.id = id;
+        		js.src = "//connect.facebook.net/en_US/sdk.js";
+        		fjs.parentNode.insertBefore(js, fjs);
+        	}(document, 'script', 'facebook-jssdk'));
+        </script>
+        <!--side drawer-->
+        <aside class="mdc-temporary-drawer mdc-typography">
+            <nav class="mdc-temporary-drawer__drawer">
+                <header class="mdc-temporary-drawer__header" style="background:#bbdefb;">
+                    <div class="mdc-temporary-drawer__header-content">
+                        Side Menu Header
+                    </div>
+                </header>
+                <nav class="mdc-temporary-drawer__content mdc-list">
+                    <a class="mdc-list-item mdc-temporary-drawer--selected" href="javascript:void(0)">
+                        X-Files
+                    </a>
+                    <a class="mdc-list-item" href="javascript:void(0)">
+                        Dashboard
+                    </a>
+                </nav>
+            </nav>
+        </aside>
+        <header class="item-start full-width flex column" id="asdf">
+            <!--top section-->
+            <section class="item full-width flex row">
+                <!--left-->
+                <div class="item half-width flex row" id="header-bar-left">
+                    <div id="menu" class="item inline"></div>
+                    <!--Page title for regular displays-->
+                    <div id="title-right" class="item hidden column">
+                        <div class="item large-font">Firebase Authentication User Interface</div>
+                        <div class="item bold">+ Google Material Components</div>
+                    </div>
+                </div>
+                <!--right-->
+                <div id="header-bar-right" class="item-start half-width flex row-reverse flex-start">
+                    <section id="account-section" class="mdc-menu-anchor mdc-typography--subheading2 item" data-mdc-auto-init="MDCRipple">
+                        <!-- image + username -->
+                        <div id="account-section-image" class="hidden"></div>
+                        <span id="account-section-text" class=""></span>
+                        <button id="sign-in-button" class="mdc-button mdc-button--primary mdc-ripple-surface" data-mdc-auto-init="MDCRipple">
+                                Sign In
+                        </button>
+                        <div class="mdc-simple-menu mdc-simple-menu--open-from-top-right" tabindex="-1" id="header-account-menu">
+                            <ul class="mdc-simple-menu__items mdc-list" role="menu" aria-hidden="true">
+                                <li class="mdc-list-item" role="menuitem" tabindex="0" id="account-button">
+                                        Account
+                                </li>
+                                <li class="mdc-list-item" role="menuitem" tabindex="0" id="account-signout-button">
+                                        Sign Out
+                                </li>
+                            </ul>
+                        </div>
+                    </section>
+                </div>
+            </section>
+            <!--bottom section-->
+            <!--Page title for phone displays-->
+            <section id="title" class="item full-width hidden row">
+                <div class="item full-width large-font">Firebase Authentication User Interface</div>
+                <div class="item full-width bold">+ Google Material Components</div>
+            </section>
+        </header>
+        <main class="item-start full-width">
+            <h3>All-In-One</h3>
+            <p>
+                <a href="//firebase.google.com/docs/auth/" class="clean-anchor">Firebase Authentication</a> user interface, UI, with 
+                <a href="//material.io/components/" class="clean-anchor">Google Material Components</a>.
+                Sign in top right with a token from your favorite social media platform or email address. 
+                The all-in-one HTML file is available on GitHub. 
+            </p>
+            <div class="code" id="current-user">
+                firebase.auth().currentUser = <span id="auth-user"></span>
+            </div>
+            <div class="code property">
+                firebase.auth().currentUser.displayName = <span id="auth-display-name"></span>
+            </div>
+            <div class="code property">
+                firebase.auth().currentUser.email = <span id="auth-email"></span>
+            </div>
+            <div class="code property">
+                firebase.auth().currentUser.emailVerified = <span id="auth-email-verified"></span>
+            </div>
+            <div class="code property">
+                firebase.auth().currentUser.uid = <span id="auth-uid"></span>
+            </div>
+            <div class="code property">
+                firebase.auth().currentUser.providerData[0].providerId = <span id="auth-providerId"></span>
+            </div>
+            <div class="code property">
+                firebase.auth().currentUser.photoURL = <span id="auth-photoURL"></span>
+            </div>
+            <aside class="footnote">
+                <p>
+                    NOTE: If an above value is empty, it is <span class="code">null</span>.  Check the specific oAuth provider's documentation for email address sharing support.
+                </p>
+                <p>
+                    NOTE: Do not read firebase authentication values on <span class="code">DOMContentLoaded</span>. Use <span class="code">.onAuthStateChanged</span>.
+                </p>
+            </aside>
+            <div class="social-bar flex row">
+                <div class="item">
+                    <div class="fb-like" data-href="//gist.github.com/rhroyston/42a2e5a84444ea8a88e9f49bff7d503cr" data-layout="button_count" data-action="like" data-size="small" data-show-faces="true" data-share="false"></div>
+                </div>
+                <div class="item">
+                    <div class="fb-share-button" data-href="//gist.github.com/rhroyston/42a2e5a84444ea8a88e9f49bff7d503c" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Frack.pub&amp;src=sdkpreparse">Share</a></div>
+                </div>
+                <div class="item">
+                    <a href="http://twitter.com/share?text=HTML%20Snippet%20Adds%20Social%20Media%20Google%2C%20Facebook%2C%20Twitter%20and%20Comments&url=https%3A%2F%2Fgist.github.com%2Frhroyston%2F42a2e5a84444ea8a88e9f49bff7d503c" class="twitter-share-button">Tweet</a>
+                </div>
+                <div class="item">
+                    <div class="g-plus" data-action="share" data-href="//gist.github.com/rhroyston/42a2e5a84444ea8a88e9f49bff7d503c"></div>
+                </div>
+                <div class="item">
+                    <div class="g-plusone" data-annotation="bubble" data-href="//gist.github.com/rhroyston/42a2e5a84444ea8a88e9f49bff7d503c" data-size="medium" data-annotation="inline" data-width="300"></div>
+                </div>
+            </div>
+            <p><a href="//rack.pub" class="clean-anchor">- Ron Royston</a></p>
+        </main>
+        <aside id="account-dialog" style="visibility:hidden" class="mdc-dialog" role="alertdialog" aria-labelledby="account-dialog-label" aria-describedby="account-dialog-description">
+            <div class="mdc-dialog__surface">
+                <header class="mdc-dialog__header">
+                    <h2 id="account-dialog-label" class="mdc-dialog__header__title mdc-typography--adjust-margin">
+                        Account
+                    </h2>
+                    <div class="mdc-ripple-surface" id="account-settings-open">
+                        <i class="material-icons" id="account-settings-icon">settings</i>
+                    </div>
+                </header>
+                <section class="mdc-dialog__body flex row flex-center">
+                    <!-- Provider Buttons -->
+                    <section id="providers" class="hidden">
+                        <div id="email" class="provider mdc-typography--subheading2 mdc-ripple-surface" tabindex="0">email</div>
+                        <div id="facebook" class="provider mdc-typography--subheading2 mdc-ripple-surface">facebook</div>
+                        <div id="google" class="provider mdc-typography--subheading2 mdc-ripple-surface">google</div>
+                        <div id="twitter" class="provider mdc-typography--subheading2 mdc-ripple-surface">twitter</div>
+                    </section>
+                    <!-- Password Provider Signin -->
+                    <section id="credentials" class="hidden">
+                        <div class="mdc-textfield account-email">
+                            <input type="text" id="username" class="mdc-textfield__input" required>
+                            <label class="mdc-textfield__label" for="username">email</label>
+                        </div>
+                        <br>
+                        <div class="mdc-textfield account-email">
+                            <input type="password" id="password" class="mdc-textfield__input" required>
+                            <label class="mdc-textfield__label" for="password">password</label>
+                        </div>
+                        <div>
+                            <a href="javascript:void(0)" id="register" class="clean-anchor">Register for Email Account</a>
+                        </div>
+                        <div>
+                            <a href="javascript:void(0)" id="password-reset" class="clean-anchor">Reset Password</a>
+                        </div>
+                    </section>
+                    <!--Password Provider Registration-->
+                    <section id="registration" class="hidden">
+                        <div class="mdc-textfield">
+                            <input type="text" id="display-name-input" class="mdc-textfield__input" required pattern=".{2,}" title="Minimum 2 characters">
+                            <label class="mdc-textfield__label" for="display-name-input">display name</label>
+                        </div>
+                        <div class="mdc-textfield">
+                            <input type="email" id="email-input" class="mdc-textfield__input" required>
+                            <label class="mdc-textfield__label" for="email-input">email</label>
+                        </div>
+                        <br>
+                        <div class="mdc-textfield">
+                            <input type="password" id="password-input" class="mdc-textfield__input" required pattern=".{5,}" title="Minimum 5 characters">
+                            <label class="mdc-textfield__label" for="password-input">password</label>
+                        </div>
+                        <div class="mdc-textfield hidden">
+                            <input type="password" id="password-verify-input" class="mdc-textfield__input" required aria-controls="reg-ver-pw-validation-msg">
+                            <label class="mdc-textfield__label" for="password-verify-input">re-enter password</label>
+                        </div>
+                    </section>
+                    <!-- Password Provider Reset Display Name Section -->
+                    <section id="display-name-reset-section" class="hidden">
+                        <p>Enter your new display name below.</p>
+                        <div class="mdc-textfield">
+                            <input type="text" id="new-display-name-input" class="mdc-textfield__input">
+                            <label class="mdc-textfield__label" for="new-display-name-input">Display Name</label>
+                        </div>
+                    </section>
+                    <!--Password Provider Reset Password Section-->
+                    <section id="password-reset-section" class="hidden">
+                        <p>A password reset link will be emailed to you if you have an existing account.</p>
+                        <div class="mdc-textfield">
+                            <input type="text" id="existing-email-input" class="mdc-textfield__input">
+                            <label class="mdc-textfield__label" for="existing-email-input">email address</label>
+                        </div>
+                    </section>
+                    <!--Password Provider Reset Email Section-->
+                    <section id="email-reset-section" class="hidden">
+                        <p>A password reset link will be emailed to you.</p>
+                        <div class="mdc-textfield">
+                            <input type="text" id="new-email-input" class="mdc-textfield__input">
+                            <label class="mdc-textfield__label" for="new-email-input">new email address</label>
+                        </div>
+                    </section>
+                    <!--Account Settings Section-->
+                    <section id="my-account-section" class="hidden flex row">
+                        <section class="item">
+                            <!--USER IMAGE AND NAME-->
+                            <div>
+                                <div id="display-image-div">
+                                    <!--Image goes here as a background-->
+                                </div>
+                            </div>
+                        </section>
+                        <section class="item flex column items-start">
+                            <div id="name-div item">
+                                <a id="name-anchor" href="javascript:void(0)" class="profile-anchor clean-anchor edit-buttons"></a>
+                                <div id="new-name-input-wrapper" class="mdc-form-field mdc-form-field--align-end hidden">
+                                    <div class="mdc-textfield" data-no-auto-js>
+                                        <input type="text" id="my-new-name-input" class="mdc-textfield__input">
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="email-div item">
+                                <a id="email-anchor" href="javascript:void(0)" class="profile-anchor clean-anchor edit-buttons"></a>
+                                <div id="new-email-input-wrapper" class="mdc-form-field mdc-form-field--align-end hidden">
+                                    <div class="mdc-textfield" data-no-auto-js>
+                                        <input type="text" id="my-new-email-input" class="mdc-textfield__input">
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </section>
+                    <!--Confirm Account Delete-->
+                    <section id="delete-section" class="hidden">
+                        <p>
+                            <span class="bold">Warning, this action cannot be undone.</span> 
+                            Enable and click the Delete Account button below to complete the action.
+                        </p>
+                        <div class="mdc-switch">
+                            <input type="checkbox" id="delete-switch" class="mdc-switch__native-control" />
+                            <div class="mdc-switch__background">
+                                <div class="mdc-switch__knob"></div>
+                            </div>
+                        </div>
+                        <label for="delete-switch" class="mdc-switch-label">Enable Delete Account Button</label>
+                    </section>
+                </section>
+                <footer class="mdc-dialog__footer">
+                    <button id="account-cancel" type="button" class="mdc-button mdc-dialog__footer__button mdc-dialog__footer__button--cancel">Cancel</button>
+                    <button id="complete-delete-submit" type="button" class="mdc-button red-text hidden" disabled>Delete Account</button>
+                    <button id="display-name-submit" type="button" class="mdc-button hidden">Submit</button>
+                    <button id="email-submit" type="button" class="mdc-button hidden" disabled>Submit</button>
+                    <button id="register-submit" type="button" class="mdc-button hidden" disabled>Register</button>
+                    <button id="reset-submit" type="button" class="mdc-button hidden" disabled>Submit</button>
+                </footer>
+            </div>
+            <div class="mdc-dialog__backdrop"></div>
+        </aside>
+        <aside id="arg-dialog" style="visibility:hidden" class="mdc-dialog" role="alertdialog" aria-labelledby="account-dialog-label" aria-describedby="arg-dialog-description">
+            <div class="mdc-dialog__surface">
+                <header class="mdc-dialog__header">
+                    <h2 id="account-dialog-label" class="mdc-dialog__header__title mdc-typography--adjust-margin">
+                        Account
+                    </h2>
+                </header>
+                <section class="mdc-dialog__body box">
+                    <!--Email Provider-->
+                    <section id="new-password-section">
+                        <div class="mdc-textfield account-email">
+                            <input type="password" id="new-password" class="mdc-textfield__input" required>
+                            <label class="mdc-textfield__label" for="new-password">New Password</label>
+                        </div>
+                        <br>
+                        <div class="mdc-textfield account-email">
+                            <input type="password" id="new-password2" class="mdc-textfield__input" required>
+                            <label class="mdc-textfield__label" for="new-password2">Verify New Password</label>
+                        </div>
+                    </section>
+                </section>
+                <footer class="mdc-dialog__footer">
+                    <button id="arg-cancel" type="button" class="mdc-button mdc-dialog__footer__button mdc-dialog__footer__button--cancel">Cancel</button>
+                    <button id="arg-submit" type="button" class="mdc-button" disabled>Submit</button>
+                </footer>
+            </div>
+            <div class="mdc-dialog__backdrop blue"></div>
+        </aside>
+        <div class="mdc-snackbar" aria-live="assertive" aria-atomic="true" aria-hidden="true">
+            <div class="mdc-snackbar__text"></div>
+            <div class="mdc-snackbar__action-wrapper">
+                <button type="button" class="mdc-button mdc-snackbar__action-button"></button>
+            </div>
+        </div>
+        <script src="https://www.gstatic.com/firebasejs/4.0.0/firebase.js"></script>
+        <script src="//unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+        <script src="//apis.google.com/js/plusone.js"></script>
+        <script src="https://apis.google.com/js/platform.js" async defer></script>
+        <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+        <script>
+          // Initialize Firebase
+          var config = {
+            apiKey: "AIzaSyC9TxdFSdci44LSAUXzYj8qDRFpEbGGe8c",
+            authDomain: "abracadabra-8012b.firebaseapp.com",
+            databaseURL: "https://abracadabra-8012b.firebaseio.com",
+            projectId: "abracadabra-8012b",
+            storageBucket: "abracadabra-8012b.appspot.com",
+            messagingSenderId: "426853951535"
+          };
+          firebase.initializeApp(config);
+          var db = firebase.database();
+          var auth = firebase.auth();
+          
+          // Initialize MDC-Web
+          window.mdc.autoInit();
+          var doc = document;
+          var accountDialog = new mdc.dialog.MDCDialog(doc.querySelector('#account-dialog'));
+          var accountDialogLabel = doc.getElementById("account-dialog-label");
+          var argDialog = new mdc.dialog.MDCDialog(doc.querySelector('#arg-dialog'));
+          var argDialogLabel = doc.getElementById("arg-dialog-label");
+          var drawer = new mdc.drawer.MDCTemporaryDrawer(doc.querySelector('.mdc-temporary-drawer'));
+          var MDCSnackbar = mdc.snackbar.MDCSnackbar;
+          var MDCRipple = mdc.ripple.MDCRipple;
+          var snackbar = new MDCSnackbar(doc.querySelector('.mdc-snackbar'));
+          var headerAccountMenu = new mdc.menu.MDCSimpleMenu(doc.getElementById("header-account-menu"));
+          //MDC Text Fields
+          var tfs = doc.querySelectorAll('.mdc-textfield:not([data-no-auto-js])');
+          for (var i = 0, tf; tf = tfs[i]; i++) {
+              mdc.textfield.MDCTextfield.attachTo(tf);
+          }
+          //MDC Buttons
+          var btns = doc.querySelectorAll('.mdc-button');
+          for (var i = 0, bt; bt = btns[i]; i++) {
+              mdc.ripple.MDCRipple.attachTo(bt);
+          }
+          //MDC Ripples
+          var rps = doc.querySelectorAll('.mdc-ripple-surface');
+          for (var i = 0, rp; rp = rps[i]; i++) {
+              mdc.ripple.MDCRipple.attachTo(rp);
+          }
+          //MDC TOGGLES
+          var nodes = doc.querySelectorAll('.mdc-icon-toggle');
+          for (var i = 0, node; node = nodes[i]; i++) {
+              mdc.iconToggle.MDCIconToggle.attachTo(node);
+          }
+          
+          //EVENT LISTENERS
+          doc.getElementById("account-settings-open").addEventListener('click', function(evt) {
+              //hide everything then show bold new title and show delete button
+              hideAccountSections();
+              doc.getElementById("account-dialog-label").innerHTML="Delete Cannot Be Undone";
+              doc.getElementById("account-settings-open").classList.add("hidden");
+              doc.getElementById("complete-delete-submit").classList.remove("hidden");
+              doc.getElementById("delete-section").classList.remove("hidden");
+          });
+          doc.getElementById("register").addEventListener('click', function(evt) {
+              hideAccountSections();
+              doc.getElementById("registration").classList.remove("hidden");
+              doc.getElementById("register-submit").classList.remove("hidden");
+          });
+          doc.getElementById("password-reset").addEventListener('click', function(evt) {
+              hideAccountSections();
+              doc.getElementById("password-reset-section").classList.remove("hidden");
+              doc.getElementById("reset-submit").classList.remove("hidden");
+          });
+          doc.getElementById("register-submit").addEventListener('click', function(evt) {
+              var email = doc.getElementById("email-input").value;
+              var displayName = doc.getElementById("display-name-input").value;
+              var password = doc.getElementById("password-input").value;
+              registerPasswordUser(email, displayName, password, "");
+              doc.getElementById("register-submit").classList.add("hidden");
+              accountDialog.close();
+          });
+          doc.getElementById("display-name-input").addEventListener("keyup", function(e) {
+              e.preventDefault();
+              if (e.keyCode == 13) {
+                  doc.getElementById("register-submit").click();
+              }
+          });
+          doc.getElementById("email-input").addEventListener("keyup", function(e) {
+              e.preventDefault();
+              if (e.keyCode == 13) {
+                  doc.getElementById("register-submit").click();
+              }
+          });
+          doc.getElementById("password-input").addEventListener("keyup", function(e) {
+              e.preventDefault();
+              if (e.keyCode == 13) {
+                  doc.getElementById("register-submit").click();
+              }
+          });
+          doc.getElementById("password-verify-input").addEventListener("keyup", function(e) {
+              e.preventDefault();
+              if(doc.getElementById("password-verify-input").value === doc.getElementById("password-input").value){
+                  doc.getElementById("password-verify-input").setCustomValidity('');
+                  doc.getElementById("register-submit").disabled = false;
+              } else {
+                  doc.getElementById("password-verify-input").setCustomValidity('Values must Match');
+              }
+              if (e.keyCode == 13) {
+                  doc.getElementById("register-submit").click();
+              }
+          });
+          doc.getElementById("password-verify-input").addEventListener("input", function() {
+              //check(doc.getElementById("password-verify-input"),doc.getElementById("password-input"))
+          });
+          doc.getElementById("complete-delete-submit").addEventListener('click', function(evt) {
+              hideAccountSections();
+              deleteAccount();
+              accountDialog.close();
+          });
+          doc.getElementById("delete-switch").addEventListener('change', function(evt) {
+              if(doc.querySelector('#delete-switch').checked){
+                  doc.getElementById("complete-delete-submit").disabled = false;
+                  doc.getElementById("account-cancel").focus();
+              } else {
+                  doc.getElementById("complete-delete-submit").disabled = true;
+              }
+          });
+          doc.getElementById("reset-submit").addEventListener('click', function(evt) {
+              try{
+                  newPasswordViaEmailReset(doc.getElementById("existing-email-input").value);
+              } catch (e) {
+                  toast('e');
+              }
+              hideAccountSections();
+              //doc.getElementById("password-reset-submit").classList.add("hidden");
+              accountDialog.close();
+          });
+          doc.getElementById("email-submit").addEventListener('click', function(evt) {
+              loginUsername(doc.getElementById("username").value, doc.getElementById("password").value);
+              hideAccountSections();
+              doc.getElementById("email-submit").classList.add("hidden");
+              accountDialog.close();
+          });
+          doc.getElementById("sign-in-button").addEventListener('click', function(evt) {
+              accountDialog.lastFocusedTarget = evt.target;
+              hideAccountSections();
+              doc.getElementById("providers").classList.remove("hidden");
+             
+              accountDialog.show();
+          });
+          doc.getElementById("email-anchor").addEventListener('click', function(evt) {
+              if(auth.currentUser.providerData[0].providerId === 'password'){
+                  doc.getElementById("new-email-input-wrapper").classList.remove("hidden");
+                  doc.getElementById("email-anchor").classList.add("hidden");
+                  window.setTimeout(function ()
+                  {
+                      doc.getElementById('my-new-email-input').focus();
+                  }, 100);        
+              }
+          });
+          doc.getElementById("my-new-email-input").addEventListener('blur', function(evt) {
+              //SAVE THE NEW EMAIL THEN HIDE ITSELF
+              if(doc.getElementById('my-new-email-input').value.length > 0){
+                  newEmail(doc.getElementById('my-new-email-input').value);
+              }
+              doc.querySelector('#new-email-input-wrapper').classList.add('hidden');
+              doc.querySelector('#email-anchor').classList.remove('hidden');
+          });
+          doc.getElementById("name-anchor").addEventListener('click', function(evt) {
+              if(auth.currentUser.providerData[0].providerId === 'password'){
+                  doc.getElementById("new-name-input-wrapper").classList.remove("hidden");
+                  doc.getElementById("name-anchor").classList.add("hidden");
+                  window.setTimeout(function ()
+                  {
+                      doc.getElementById('my-new-name-input').focus();
+                  }, 100);
+              }
+          });
+          doc.getElementById("my-new-name-input").addEventListener('blur', function(evt) {
+              //SAVE THE NEW EMAIL THEN HIDE ITSELF
+              console.log(doc.getElementById('my-new-name-input').value + ' was read');
+              if(doc.getElementById('my-new-name-input').value.length > 0){
+                  newName(doc.getElementById('my-new-name-input').value);
+              }
+              doc.querySelector('#new-name-input-wrapper').classList.add('hidden');
+              doc.querySelector('#name-anchor').classList.remove('hidden');
+          });
+          doc.getElementById("account-button").addEventListener('click', function(evt) {
+              hideAccountSections();
+              //SHOW THE MY ACCOUNT SECTION
+              doc.getElementById("my-account-section").classList.remove("hidden");
+              //SET DISPLAY IMAGE
+              if(!auth.currentUser.photoURL){
+                  doc.getElementById("display-image-div").style.backgroundImage = "url('" + getGravatar(auth.currentUser.email, 96) + "')";
+              } else {
+                  doc.getElementById("display-image-div").style.backgroundImage = "url('" + getPhotoURL() + "')";
+              }
+              //INSERT DISPLAY NAME AND EMAIL
+              doc.getElementById("name-anchor").innerHTML = auth.currentUser.displayName + " <i class='material-icons edit-icons hidden'>edit</i>";
+              if(auth.currentUser.email){
+                  doc.getElementById("email-anchor").innerHTML = auth.currentUser.email + " <i class='material-icons edit-icons hidden'>edit</i>";
+              }
+              //UNHIDE IMAGE
+              doc.getElementById("display-image-div").classList.remove("hidden");
+              //UNHIDE ACCOUNT OPTIONS ICON - ALL USERS CAN DELETE ACCOUNT
+              doc.getElementById("account-settings-open").classList.remove("hidden");    
+              //FOR PASSWORD-BASED USERS
+              if(auth.currentUser.providerData[0].providerId === 'password') {
+                  //PASSWORD-BASED USERS CAN CHANGE DISPLAY NAME, EMAIL ADDRESS, PASSWORD
+                  //so show as hyperlink display name, email address, and a password
+                  //show edit icons
+                  var editIcons = doc.getElementsByClassName("edit-icons");
+                  for (var i = 0; i < editIcons.length; i++) {
+                      editIcons[i].classList.remove("hidden");
+                  }
+              }
+              
+              accountDialog.lastFocusedTarget = evt.target;
+              accountDialog.show();
+              doc.getElementById("account-cancel").focus();
+          });
+          doc.getElementById("account-section-image").addEventListener('click', () => headerAccountMenu.open = !headerAccountMenu.open);
+          doc.getElementById("account-signout-button").addEventListener('click', function() {
+              signout();
+          });
+          doc.getElementById("menu").addEventListener('click', function(evt) {
+              drawer.open = true;
+          });
+          doc.getElementById("password").addEventListener("input", function() {
+              if (this != null) {
+                  doc.getElementById("email-submit").disabled = false;
+              }
+          });
+          doc.getElementById("password").addEventListener("keyup", function(e) {
+              e.preventDefault();
+              if (e.keyCode == 13) {
+                  doc.getElementById("email-submit").click();
+              }
+          });
+          doc.getElementById("existing-email-input").addEventListener("input", function() {
+              if (this != null) {
+                  doc.getElementById("reset-submit").disabled = false;
+              }
+          });
+          doc.getElementById("existing-email-input").addEventListener("keyup", function(e) {
+              e.preventDefault();
+              if (e.keyCode == 13) {
+                  doc.getElementById("reset-submit").click();
+              }
+          });
+          //PROVIDER BUTTONS
+          var providers = doc.getElementsByClassName('provider');
+          if (providers) {
+              for (var i = 0; i < providers.length; i++) {
+                  providers[i].addEventListener("click", fireAuth);
+              }
+          }
+          accountDialog.listen('MDCDialog:accept', function(e) {
+              console.log('accepted and this dsa = ' + this.dataset.action);
+              if (this.dataset.action === "signin") {
+                  console.log(doc.getElementById("email-input").value);
+                  //registerPasswordUser(email,displayName,password,photoURL)
+              }
+          });
+          accountDialog.listen('MDCDialog:cancel', function() {
+              hideAccountSections();
+          });
+          argDialog.listen('MDCDialog:cancel', function() {
+              doc.getElementById("email-submit").classList.remove("hidden");
+              doc.getElementById("credentials").classList.remove("hidden");
+          });
+          
+          //FIREBASE
+          //HANDLE QUERY PARAMETERS
+          var getArg = getArg();
+          var mode = getArg['mode'];
+          var oobCode = getArg['oobCode'];
+          switch (mode) {
+              case 'resetPassword':
+                  handleResetPassword(auth, oobCode);
+                  break;
+              case 'recoverEmail':
+                  handleRecoverEmail(auth, oobCode);
+                  break;
+              case 'verifyEmail':
+                  handleVerifyEmail(auth, oobCode);
+                  break;
+          }
+          
+          //FIREBASAE AUTH METHODS
+          function fireAuth() {
+              switch (this.id) {
+                  case 'facebook':
+                      provider = new firebase.auth.FacebookAuthProvider();
+                      break;
+                  case 'email':
+                      hideAccountSections();
+                      accountDialogLabel.innerHTML = "Account - Email Sign In";
+                      doc.getElementById("credentials").classList.remove("hidden");
+                      doc.getElementById("email-submit").classList.remove("hidden");
+                      return;
+                      break;
+                  case 'google':
+                      provider = new firebase.auth.GoogleAuthProvider();
+                      break;
+                  case 'twitter':
+                      provider = new firebase.auth.TwitterAuthProvider();
+                      break;
+              }
+              authAction();
+          }
+          function authAction() {
+              auth.signInWithPopup(provider).then(function(result) {
+                  redirect('/');
+              }).catch(function(error) {
+                  // Handle Errors here.
+                  toast(error.message);
+              });
+          }
+          function loginUsername(email, password) {
+              auth.signInWithEmailAndPassword(email, password).then(function(value) {
+                  //NEED TO PULL USER DATA?
+                  redirect("/");
+              }).catch(function(error) {
+                  toast(error.message);
+              });
+          }
+          var signout = function() {
+              auth.signOut().then(function() {
+                  // accountButton.style.display = "none";
+                  // signInButton.style.display = "inline";
+                  toast('Signed Out');
+                  redirect('/');
+              }, function(error) {
+                  toast('Sign out Failed');
+              });
+          };
+          function registerPasswordUser(email, displayName, password, photoURL) {
+              var user = null;
+              //NULLIFY EMPTY ARGUMENTS
+              for (var i = 0; i < arguments.length; i++) {
+                  arguments[i] = arguments[i] ? arguments[i] : null;
+              }
+              auth.createUserWithEmailAndPassword(email, password)
+                  .then(function() {
+                      user = auth.currentUser;
+                      user.sendEmailVerification();
+                  })
+                  .then(function() {
+                      user.updateProfile({
+                          displayName: displayName,
+                          photoURL: photoURL
+                      });
+                  })
+                  .catch(function(error) {
+                      toast(error.message);
+                  });
+              toast('Validation link was sent to ' + email + '.');
+            
+          }
+          function deleteAccount() {
+              auth.currentUser.delete().then(function(value) {
+                  toast('Account Deleted');
+              }).catch(function(error) {
+                  toast(error.message);
+              });
+          }
+          function newEmail(newEmail) {
+              user = auth.currentUser;
+              user.updateEmail(newEmail).then(function(value) {
+                  user.sendEmailVerification().then(function(value) {
+                      toast('Check ' + user.email + ' to validate change.');
+                      signout();
+                  }).catch(function(error) {
+                      toast(error.message);
+                  });
+              }).catch(function(error) {
+                  toast(error.message);
+              });
+          }
+          function newPassword(newPassword) {
+              //UPDATEs PASSWORD WITHOUT EMAIL VERIFICATION
+              auth.currentUser.updatePassword(newPassword).then(function(value) {
+                  toast('Password Updated');
+              }).catch(function(error) {
+                  toast(error.message);
+              });
+          }
+          function newName(newName) {
+              auth.currentUser.updateProfile({
+                  displayName: newName
+              }).then(function() {
+                  toast('Display Name Updated');
+                  //reset
+                  if(auth.currentUser.displayName){
+                      doc.getElementById("name-anchor").innerHTML = auth.currentUser.displayName + " <i class='material-icons edit-icons'>edit</i>";
+                  }
+              }, function(error) {
+                  toast(error.message);
+              });
+              }
+          function newPasswordViaEmailReset(email) {
+              auth.sendPasswordResetEmail(email).then(function(value) {
+                  toast('Check email to complete action');
+              }).catch(function(error) {
+                  toast(error.message);
+              });
+          }
+          function putNewUser() {
+              //UPDATES USER DATA TO REALTIME DATABASE
+              if (auth.currentUser) {
+                  db.ref('/users/' + auth.currentUser.uid).once('value').then(function(snap) {
+                      if (snap.val()) {
+                          //exit bcs user already exists
+                          return;
+                      }
+                      else {
+                          // save the user's profile into the database
+                          db.ref('/users/' + auth.currentUser.uid).set({
+                              displayName: auth.currentUser.displayName,
+                              email: auth.currentUser.email
+                          });
+                      }
+                  }, function(error) {
+                      // The Promise was rejected.
+                      toast(error);
+                  });
+              }
+          }
+          function getPhotoURL(){
+              if(auth.currentUser.photoURL){
+                  if(auth.currentUser.providerData[0].providerId === 'twitter.com') {
+                      //replace _normal.jpg with _400x400.jpg
+                      return auth.currentUser.photoURL.replace("_normal.jpg", "_400x400.jpg");
+                  }
+              }
+              return auth.currentUser.photoURL;
+          }
+          
+          //QUERY PARAMETER HANDLER FUNCTIONS
+          function handleResetPassword(auth, oobCode) {
+              // Verify the password reset code is valid.
+              auth.verifyPasswordResetCode(oobCode).then(function(email) {
+                  //verified that user asked for password reset now let's take their new password
+                  //show argDialog
+                  argDialog.show();
+                  argDialogLabel.innerHTML = "Enter New Password";
+                  
+                  //enable email submit button
+                  doc.getElementById("new-password2").addEventListener("input", function() {
+                      if (this != null) {
+                          doc.getElementById("arg-submit").disabled = false;
+                      }
+                  });
+                  //enable pressing enter
+                  doc.getElementById("new-password2").addEventListener("keyup", function(e) {
+                      e.preventDefault();
+                      if (e.keyCode == 13) {
+                          argSubmitButton.click();
+                      }
+                  });
+                  doc.getElementById('arg-submit').addEventListener("click", function() {
+                      var newPassword = doc.getElementById("new-password2").value;
+                      verifyPassword(oobCode, newPassword,email);
+                      argDialog.close();
+                  });
+                  
+              }).catch(function(error) {
+                  toast(error.message);
+              });
+          }
+          function verifyPassword(oobCode, newPassword, email) {
+              auth.confirmPasswordReset(oobCode, newPassword).then(function(resp) {
+                  // Password reset has been confirmed and new password updated.
+                  // TODO: Display a link back to the app, or sign-in the user directly
+                  // if the page belongs to the same domain as the app:
+                  auth.signInWithEmailAndPassword(email, newPassword);
+                  setAccountChip();
+                  toast('Password Changed');
+              }).catch(function(error) {
+                  // Error occurred during confirmation. The code might have expired or the
+                  // password is too weak.
+                  toast(error.message);
+              });
+          }
+          function handleRecoverEmail(auth, oobCode) {
+              var restoredEmail = null;
+              // Confirm the action code is valid.
+              auth.checkActionCode(oobCode).then(function(info) {
+                  // Get the restored email address.
+                  restoredEmail = info['data']['email'];
+                  // Revert to the old email.
+                  return auth.applyActionCode(oobCode);
+              }).then(function() {
+                  toast('Account email change undone');
+                  auth.sendPasswordResetEmail(restoredEmail).then(function() {
+                      // Password reset confirmation sent. Ask user to check their email.
+                  }).catch(function(error) {
+                      // Error encountered while sending password reset code.
+                      toast(error.message);
+                  });
+              }).catch(function(error) {
+                  // Invalid code.
+                  toast(error.message);
+              });
+          }
+          function handleVerifyEmail(auth, oobCode) {
+              // Try to apply the email verification code.
+              auth.applyActionCode(oobCode).then(function(resp) {
+                  // js doesn't see email verified yet so we short circuit setAccountChip.
+                  setAccountChip('good');
+                  toast('Email address has been verified');
+                  
+                  //need to clean the location url bar and refresh the list item email verified
+                  window.history.replaceState(null, null, window.location.pathname);
+                  doc.getElementById("auth-email-verified").innerHTML = "true";
+                  
+                  //addPrivateLinkToDrawer();
+              }).catch(function(error) {
+                  // Code is invalid or expired. Ask the user to verify their email address again.
+                  toast(error.message);
+              });
+          }
+          function getArg(param) {
+              var vars = {};
+              window.location.href.replace(location.hash, '').replace(
+                  /[?&]+([^=&]+)=?([^&]*)?/gi, // regexp
+                  function(m, key, value) { // callback
+                      vars[key] = value !== undefined ? value : '';
+                  }
+              );
+              if (param) {
+                  return vars[param] ? vars[param] : null;
+              }
+              return vars;
+          }
+          function redirect(path) {
+              var baseURL = window.location.protocol + '//' + window.location.host;
+              var hasSlash = path.charAt(0) == '/';
+              if (!hasSlash) {
+                  path = '/' + path;
+              }
+              var onThisPage = (window.location.href.indexOf(baseURL + path) > -1);
+              if (!onThisPage) {
+                  //redirect them to login page for message
+                  location = baseURL + path;
+              }
+          }
+          auth.onAuthStateChanged(function(user) {
+              var accountSectionImage = doc.getElementById("account-section-image");
+              var signInButton = doc.getElementById("sign-in-button");
+              var authDisplayName = doc.getElementById("auth-display-name");
+              var authEmail = doc.getElementById("auth-email");
+              var currentUser = doc.getElementById("current-user");
+              var authUser = doc.getElementById("auth-user");
+              var authEmailVerified = doc.getElementById("auth-email-verified");
+              var authPhotoURL = doc.getElementById("auth-photoURL");
+              var authUID = doc.getElementById("auth-uid");
+              var authProviderID = doc.getElementById("auth-providerId");
+              var props = doc.getElementsByClassName("property");
+              
+              if (user) { //USER IS SIGNED IN
+                  hideAccountSections();
+                  accountDialog.close();
+          
+                  for (var i = 0; i < props.length; i++) {
+                      props[i].classList.add("property-show");
+                  }        
+                  currentUser.classList.add("hidden");
+                  
+                  authDisplayName.classList.remove("hidden");
+                  authDisplayName.innerHTML = auth.currentUser.displayName;
+                  console.log(auth.currentUser.displayName);
+                  
+                  authEmail.classList.remove("hidden");
+                  authEmail.innerHTML = auth.currentUser.email;
+                  
+                  authEmailVerified.classList.remove("hidden");
+                  authEmailVerified.innerHTML = auth.currentUser.emailVerified;
+                  
+                  authPhotoURL.classList.remove("hidden");
+                  authPhotoURL.innerHTML = auth.currentUser.photoURL;
+                  //need a function that returns url
+                  authUID.classList.remove("hidden");
+                  authUID.innerHTML = auth.currentUser.uid;
+                  
+                  authProviderID.classList.remove("hidden");
+                  authProviderID.innerHTML = auth.currentUser.providerData[0].providerId;
+                  
+                  //hide login button
+                  if (signInButton) {
+                      signInButton.classList.add("hidden");
+                  }
+                  if (!auth.currentUser.photoURL) {
+                      //set account-button background image to gravatar url
+                      doc.getElementById("account-section-image").style.backgroundImage = "url('" + getGravatar(auth.currentUser.email, 48) + "')";
+                  } else {
+                      accountSectionImage.style.backgroundImage = "url('" + getPhotoURL() + "')";
+                  }
+                  
+                  accountSectionImage.classList.remove("hidden");
+                  
+                  switch (user.providerData[0].providerId) {
+                      case 'facebook':
+                      case 'github':
+                      case 'google':
+                      case 'twitter':
+                          break;
+                      case 'password':
+                          // if (!verifiedUser) {
+                          // }
+                          break;
+                  }
+                  putNewUser();
+                  //addPrivateLinkToDrawer();
+              }
+              else { //USER IS NOT SIGNED IN
+                  //DISABLE BUTTON AND LINKS
+                  currentUser.classList.remove("hidden");
+                  for (var i = 0; i < props.length; i++) {
+                          props[i].classList.remove("property-show");
+                  }
+                  //hide edit icons
+                  var editIcons = doc.getElementsByClassName("edit-icons");
+                  for (var i = 0; i < editIcons.length; i++) {
+                      editIcons[i].classList.add("hidden");
+                  }
+                  //show login button
+                  if (signInButton) {
+                      signInButton.classList.remove("hidden");
+                  }
+                  //hide account photo
+                  accountSectionImage.classList.add("hidden");
+                  authUser.innerHTML = "null";
+                  authDisplayName.classList.add("hidden");
+                  authEmail.classList.add("hidden");
+                  authEmailVerified.classList.add("hidden");
+                  authPhotoURL.classList.add("hidden");
+                  authUID.classList.add("hidden");
+                  authProviderID.classList.add("hidden");
+                  hideAccountSections();
+              }
+              //ADJUST USER CHIP IN ANY CASE
+              setAccountChip();
+              
+              //MUST RESET FLEX LAYOUT ON DYNAMIC CONTENT LOAD TO AVOID HORIZONTAL SCROOL ON MOBILE
+              var elem = doc.querySelector("body > header");
+              elem.style.display='none';
+              elem.offsetHeight;
+              elem.style.display='flex';
+          });
+          
+          //UI
+          function check(input,otherInput) {
+              if (input.value != otherInput.value) {
+                  input.setCustomValidity('Values Must Match');
+              }
+              else {
+                  // VALID INPUT - RESET ERROR MESSAGE
+                  input.setCustomValidity('');
+                  //submitButton.disabled = false;
+              }
+          }
+          function hideAccountSections() {
+              doc.getElementById("providers").classList.add("hidden");
+              doc.getElementById("credentials").classList.add("hidden");
+              doc.getElementById("registration").classList.add("hidden");
+              doc.getElementById("account-settings-open").classList.add("hidden");
+              doc.getElementById("email-submit").classList.add("hidden");
+              doc.getElementById("register-submit").classList.add("hidden");
+              doc.getElementById("password-reset-section").classList.add("hidden");
+              doc.getElementById("delete-section").classList.add("hidden");
+              doc.getElementById("complete-delete-submit").classList.add("hidden");
+              doc.getElementById("display-image-div").classList.add("hidden");
+              doc.getElementById("display-name-submit").classList.add("hidden");
+              doc.getElementById("reset-submit").classList.add("hidden");
+              doc.getElementById("my-account-section").classList.add("hidden");
+              accountDialogLabel.innerHTML = "Account";
+              doc.getElementById("delete-switch").checked = false;
+              doc.getElementById("complete-delete-submit").disabled = true;
+          }
+          function toast(msg, timeout) {
+              if (!timeout) {
+                  timeout = 2750;
+              }
+              snackbar.show({
+                  message: msg
+              });
+          }
+          function setAccountChip(msg) {
+              var accountSectionText = doc.getElementById("account-section-text");
+              accountSectionText.innerHTML = '';
+              if (auth.currentUser) {
+                  //if we have currentusers email
+                  if(auth.currentUser.email){
+                      //if we do not have photoURL then let's try gravatar
+                      if(!auth.currentUser.photoURL){
+                          //set account-button background image to gravatar url
+                          doc.getElementById("account-section-image").style.backgroundImage = "url('" + getGravatar(auth.currentUser.email, 48) + "')";
+                      }
+                  }
+              }
+          }
+          var editButtons = doc.getElementsByClassName("edit-buttons");
+          for (var i = 0; i < editButtons.length; i++) {
+              editButtons[i].addEventListener("mouseenter", function( event ) {
+                  event.target.getElementsByClassName("edit-icons")[0].style.opacity = ".8";
+              });
+          } 
+          for (var i = 0; i < editButtons.length; i++) {
+              editButtons[i].addEventListener("mouseleave", function( event ) {
+                  event.target.getElementsByClassName("edit-icons")[0].style.opacity = ".2";
+              });
+          } 
+          //ON LOAD INITIALLY ASSUME PHONE
+          var width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+          doc.getElementById("title").style.display = "flex";
+          doc.getElementById("title-right").style.display = "none";
+          if (width >= 840) {
+              //IT'S A DESKTOP
+              doc.getElementById("title").style.display = "none";
+              doc.getElementById("title-right").style.display = "flex";
+          }
+          else if (width >= 480) {
+              //IT'S A TABLET
+              doc.getElementById("title").style.display = "flex";
+              doc.getElementById("title-right").style.display = "none";
+          }
+          //ON RESIZE INITIALLY ASSUME PHONE
+          window.addEventListener("resize", resizeThrottler, false);
+          var resizeTimeout;
+          
+          function actualResizeHandler() {
+              // assuming device is a phone
+              doc.getElementById("title").style.display = "flex";
+              doc.getElementById("title-right").style.display = "none";
+              if (window.innerWidth >= 840) {
+                  //device is a desktop
+                  doc.getElementById("title").style.display = "none";
+                  doc.getElementById("title-right").style.display = "flex";
+              }
+              else if (window.innerWidth >= 480) {
+                  //device is a tablet
+                  doc.getElementById("title").style.display = "none";
+                  doc.getElementById("title-right").style.display = "flex";
+              }
+          }
+          function resizeThrottler() {
+              // ignore resize events as long as an actualResizeHandler execution is in the queue
+              if ( !resizeTimeout ) {
+                resizeTimeout = setTimeout(function() {
+                  resizeTimeout = null;
+                  actualResizeHandler();
+                 // The actualResizeHandler will execute at a rate of 15fps
+                 }, 66);
+              }
+          }
+          function getGravatar(email, size) {
+              // MD5 (Message-Digest Algorithm) by WebToolkit
+              var MD5=function(s){function L(k,d){return(k<<d)|(k>>>(32-d))}function K(G,k){var I,d,F,H,x;F=(G&2147483648);H=(k&2147483648);I=(G&1073741824);d=(k&1073741824);x=(G&1073741823)+(k&1073741823);if(I&d){return(x^2147483648^F^H)}if(I|d){if(x&1073741824){return(x^3221225472^F^H)}else{return(x^1073741824^F^H)}}else{return(x^F^H)}}function r(d,F,k){return(d&F)|((~d)&k)}function q(d,F,k){return(d&k)|(F&(~k))}function p(d,F,k){return(d^F^k)}function n(d,F,k){return(F^(d|(~k)))}function u(G,F,aa,Z,k,H,I){G=K(G,K(K(r(F,aa,Z),k),I));return K(L(G,H),F)}function f(G,F,aa,Z,k,H,I){G=K(G,K(K(q(F,aa,Z),k),I));return K(L(G,H),F)}function D(G,F,aa,Z,k,H,I){G=K(G,K(K(p(F,aa,Z),k),I));return K(L(G,H),F)}function t(G,F,aa,Z,k,H,I){G=K(G,K(K(n(F,aa,Z),k),I));return K(L(G,H),F)}function e(G){var Z;var F=G.length;var x=F+8;var k=(x-(x%64))/64;var I=(k+1)*16;var aa=Array(I-1);var d=0;var H=0;while(H<F){Z=(H-(H%4))/4;d=(H%4)*8;aa[Z]=(aa[Z]|(G.charCodeAt(H)<<d));H++}Z=(H-(H%4))/4;d=(H%4)*8;aa[Z]=aa[Z]|(128<<d);aa[I-2]=F<<3;aa[I-1]=F>>>29;return aa}function B(x){var k="",F="",G,d;for(d=0;d<=3;d++){G=(x>>>(d*8))&255;F="0"+G.toString(16);k=k+F.substr(F.length-2,2)}return k}function J(k){k=k.replace(/rn/g,"n");var d="";for(var F=0;F<k.length;F++){var x=k.charCodeAt(F);if(x<128){d+=String.fromCharCode(x)}else{if((x>127)&&(x<2048)){d+=String.fromCharCode((x>>6)|192);d+=String.fromCharCode((x&63)|128)}else{d+=String.fromCharCode((x>>12)|224);d+=String.fromCharCode(((x>>6)&63)|128);d+=String.fromCharCode((x&63)|128)}}}return d}var C=Array();var P,h,E,v,g,Y,X,W,V;var S=7,Q=12,N=17,M=22;var A=5,z=9,y=14,w=20;var o=4,m=11,l=16,j=23;var U=6,T=10,R=15,O=21;s=J(s);C=e(s);Y=1732584193;X=4023233417;W=2562383102;V=271733878;for(P=0;P<C.length;P+=16){h=Y;E=X;v=W;g=V;Y=u(Y,X,W,V,C[P+0],S,3614090360);V=u(V,Y,X,W,C[P+1],Q,3905402710);W=u(W,V,Y,X,C[P+2],N,606105819);X=u(X,W,V,Y,C[P+3],M,3250441966);Y=u(Y,X,W,V,C[P+4],S,4118548399);V=u(V,Y,X,W,C[P+5],Q,1200080426);W=u(W,V,Y,X,C[P+6],N,2821735955);X=u(X,W,V,Y,C[P+7],M,4249261313);Y=u(Y,X,W,V,C[P+8],S,1770035416);V=u(V,Y,X,W,C[P+9],Q,2336552879);W=u(W,V,Y,X,C[P+10],N,4294925233);X=u(X,W,V,Y,C[P+11],M,2304563134);Y=u(Y,X,W,V,C[P+12],S,1804603682);V=u(V,Y,X,W,C[P+13],Q,4254626195);W=u(W,V,Y,X,C[P+14],N,2792965006);X=u(X,W,V,Y,C[P+15],M,1236535329);Y=f(Y,X,W,V,C[P+1],A,4129170786);V=f(V,Y,X,W,C[P+6],z,3225465664);W=f(W,V,Y,X,C[P+11],y,643717713);X=f(X,W,V,Y,C[P+0],w,3921069994);Y=f(Y,X,W,V,C[P+5],A,3593408605);V=f(V,Y,X,W,C[P+10],z,38016083);W=f(W,V,Y,X,C[P+15],y,3634488961);X=f(X,W,V,Y,C[P+4],w,3889429448);Y=f(Y,X,W,V,C[P+9],A,568446438);V=f(V,Y,X,W,C[P+14],z,3275163606);W=f(W,V,Y,X,C[P+3],y,4107603335);X=f(X,W,V,Y,C[P+8],w,1163531501);Y=f(Y,X,W,V,C[P+13],A,2850285829);V=f(V,Y,X,W,C[P+2],z,4243563512);W=f(W,V,Y,X,C[P+7],y,1735328473);X=f(X,W,V,Y,C[P+12],w,2368359562);Y=D(Y,X,W,V,C[P+5],o,4294588738);V=D(V,Y,X,W,C[P+8],m,2272392833);W=D(W,V,Y,X,C[P+11],l,1839030562);X=D(X,W,V,Y,C[P+14],j,4259657740);Y=D(Y,X,W,V,C[P+1],o,2763975236);V=D(V,Y,X,W,C[P+4],m,1272893353);W=D(W,V,Y,X,C[P+7],l,4139469664);X=D(X,W,V,Y,C[P+10],j,3200236656);Y=D(Y,X,W,V,C[P+13],o,681279174);V=D(V,Y,X,W,C[P+0],m,3936430074);W=D(W,V,Y,X,C[P+3],l,3572445317);X=D(X,W,V,Y,C[P+6],j,76029189);Y=D(Y,X,W,V,C[P+9],o,3654602809);V=D(V,Y,X,W,C[P+12],m,3873151461);W=D(W,V,Y,X,C[P+15],l,530742520);X=D(X,W,V,Y,C[P+2],j,3299628645);Y=t(Y,X,W,V,C[P+0],U,4096336452);V=t(V,Y,X,W,C[P+7],T,1126891415);W=t(W,V,Y,X,C[P+14],R,2878612391);X=t(X,W,V,Y,C[P+5],O,4237533241);Y=t(Y,X,W,V,C[P+12],U,1700485571);V=t(V,Y,X,W,C[P+3],T,2399980690);W=t(W,V,Y,X,C[P+10],R,4293915773);X=t(X,W,V,Y,C[P+1],O,2240044497);Y=t(Y,X,W,V,C[P+8],U,1873313359);V=t(V,Y,X,W,C[P+15],T,4264355552);W=t(W,V,Y,X,C[P+6],R,2734768916);X=t(X,W,V,Y,C[P+13],O,1309151649);Y=t(Y,X,W,V,C[P+4],U,4149444226);V=t(V,Y,X,W,C[P+11],T,3174756917);W=t(W,V,Y,X,C[P+2],R,718787259);X=t(X,W,V,Y,C[P+9],O,3951481745);Y=K(Y,h);X=K(X,E);W=K(W,v);V=K(V,g)}var i=B(Y)+B(X)+B(W)+B(V);return i.toLowerCase()};
+              var size = size || 80;
+              return 'http://www.gravatar.com/avatar/' + MD5(email) + '.jpg?s=' + size;
+          }
+        </script>
+    </body>
+</html>
