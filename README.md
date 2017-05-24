@@ -1,6 +1,6 @@
 # Firebase v4 Authentication User Interface + Google Material Components
 
-###### [🐎 LIVE DEMO](https://abracadabra-8012b.firebaseapp.com/)
+##### [LIVE DEMO](https://abracadabra-8012b.firebaseapp.com/)
 
 ### Synopsis
 
@@ -25,14 +25,12 @@ A [Firebase Authentication (v4)](https://firebase.google.com/products/auth/) wit
    - Promise based functions aligned with Firebase documentation
    - Plain id based event listeners
 
-### [LIVE DEMO](https://abracadabra-8012b.firebaseapp.com/)
-
 ### Installation
 
 The public folder contains the single index.html file. 
 From the Firebase console, create a Firebase project. 
 Under the Overview section click on "Add Firebase to your web app".
-From the Firebase console, go to Authentication > Templates tab and remove "/__/auth/action" from the Action URL - we don't need it. 
+From the Firebase console, go to Authentication > Templates tab and remove `/__/auth/action` from the Action URL - we don't need it. 
 Keep the query parameters in the Action URL (the text after the ?).
 
 ### Contribute
