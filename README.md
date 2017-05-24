@@ -5,7 +5,6 @@
 A [Firebase Authentication (v4)](https://firebase.google.com/products/auth/) with [Material Components](//material.io/components) user interface, UI. Sign in with a token from your favorite social media platform or via email. 
 
 <img src="https://github.com/rhroyston/rhroyston.github.io/blob/master/firebase-v4-auth-screenshots.png" alt="screenshot" style="max-width:80%">
-
 #### Features
 
  - Single HTML file
