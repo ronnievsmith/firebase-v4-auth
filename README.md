@@ -10,6 +10,7 @@ A [Firebase Authentication (v4)](https://firebase.google.com/products/auth/) wit
 
 #### Features
 
+ - Single page app implementation
  - Single HTML file
    - Paste in your firebase project parameters and go
  - Account changes require email verification
@@ -28,7 +29,11 @@ A [Firebase Authentication (v4)](https://firebase.google.com/products/auth/) wit
 
 ### Installation
 
-The public folder contains the single index.html file. From the Firebase console, create a Firebase project.  Under the Overview section click on "Add Firebase to your web app".
+The public folder contains the single index.html file. 
+From the Firebase console, create a Firebase project. 
+Under the Overview section click on "Add Firebase to your web app".
+From the Firebase console, go to Authentication > Templates tab and remove "/__/auth/action" from the Action URL - we don't need it. 
+Keep the query parameters in the Action URL (the text after the ?).
 
 ### Contribute
 
