@@ -1,5 +1,7 @@
 # Firebase v4 Authentication User Interface + Google Material Components
 
+###### [LIVE DEMO](https://abracadabra-8012b.firebaseapp.com/)
+
 ### Synopsis
 
 A [Firebase Authentication (v4)](https://firebase.google.com/products/auth/) with [Material Components](//material.io/components) user interface, UI. Sign in with a token from your favorite social media platform or via email. 
