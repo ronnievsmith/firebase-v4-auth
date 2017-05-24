@@ -23,7 +23,6 @@
         <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,700,900" rel="stylesheet">
         <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
         <link rel="stylesheet" href="//unpkg.com/material-components-web@latest/dist/material-components-web.min.css">
-        <link rel="stylesheet" href="style.css">
         <style>
           html {
               margin: 0;
@@ -767,7 +766,6 @@
           });
           doc.getElementById("my-new-name-input").addEventListener('blur', function(evt) {
               //SAVE THE NEW EMAIL THEN HIDE ITSELF
-              console.log(doc.getElementById('my-new-name-input').value + ' was read');
               if(doc.getElementById('my-new-name-input').value.length > 0){
                   newName(doc.getElementById('my-new-name-input').value);
               }
