@@ -3,11 +3,14 @@
 ### Synopsis
 
 A [Firebase Authentication (v4)](https://firebase.google.com/products/auth/) with [Material Components](//material.io/components) user interface, UI. Sign in with a token from your favorite social media platform or via email. 
+
 <img src="https://github.com/rhroyston/rhroyston.github.io/blob/master/firebase-v4-auth-screenshots.png" alt="screenshot" style="max-width:80%">
+
 #### Features
 
  - Single HTML file
    - Paste in your firebase project parameters and go
+ - Account changes require email verification
  - Mobile First User Interface
    - Material Components UI
    - photoURL resolution upgrades
@@ -18,19 +21,16 @@ A [Firebase Authentication (v4)](https://firebase.google.com/products/auth/) wit
  - Vanilla, easy-to-read JavaScript / ECMA Script
    - Promise based functions aligned with Firebase documentation
    - Plain id based event listeners
-   - Account changes are email verified
 
 ### [LIVE DEMO](https://abracadabra-8012b.firebaseapp.com/)
 
 ### Installation
 
-Every effort has been taken to simplify this authentication user interface code.  The CSS and JavaScript are embedded in the top and bottom of the HTML file.
-
 The easiest way to install this example is to clone or download it.
 
 ### Contribute
 
-If you found a bug, have any questions or want to contribute please let me know, [ron@rack.pub](mailto:ron@rack.pub).
+If you found a bug, have any questions or want to contribute or collaborate please let me know, [ron@rack.pub](mailto:ron@rack.pub).
 
 ### License
 
