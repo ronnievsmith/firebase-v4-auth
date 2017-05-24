@@ -1,6 +1,6 @@
 # Firebase v4 Authentication User Interface + Google Material Components
 
-###### [LIVE DEMO](https://abracadabra-8012b.firebaseapp.com/)
+###### [🐎 LIVE DEMO](https://abracadabra-8012b.firebaseapp.com/)
 
 ### Synopsis
 
