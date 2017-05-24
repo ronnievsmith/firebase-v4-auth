@@ -285,6 +285,8 @@
     </head>
     
     <body class="flex column flex-start">
+        
+        <!--OPTIONAL AND UNRELATED SOCIAL MEDIA BUTTONS BELOW-->
         <script>
         	//Facebook API
         	window.fbAsyncInit = function() {
@@ -304,6 +306,8 @@
         		fjs.parentNode.insertBefore(js, fjs);
         	}(document, 'script', 'facebook-jssdk'));
         </script>
+        <!--OPTIONAL AND UNRELATED SOCIAL MEDIA BUTTONS ABOVE-->
+
         <!--side drawer-->
         <aside class="mdc-temporary-drawer mdc-typography">
             <nav class="mdc-temporary-drawer__drawer">
@@ -400,6 +404,7 @@
                     NOTE: Do not read firebase authentication values on <span class="code">DOMContentLoaded</span>. Use <span class="code">.onAuthStateChanged</span>.
                 </p>
             </aside>
+            <!--OPTIONAL AND UNRELATED SOCIAL MEDIA BUTTONS BELOW-->
             <div class="social-bar flex row">
                 <div class="item">
                     <div class="fb-like" data-href="//gist.github.com/rhroyston/42a2e5a84444ea8a88e9f49bff7d503cr" data-layout="button_count" data-action="like" data-size="small" data-show-faces="true" data-share="false"></div>
@@ -417,6 +422,7 @@
                     <div class="g-plusone" data-annotation="bubble" data-href="//gist.github.com/rhroyston/42a2e5a84444ea8a88e9f49bff7d503c" data-size="medium" data-annotation="inline" data-width="300"></div>
                 </div>
             </div>
+            <!--OPTIONAL AND UNRELATED SOCIAL MEDIA BUTTONS ABOVE-->
             <p><a href="//rack.pub" class="clean-anchor">- Ron Royston</a></p>
         </main>
         <aside id="account-dialog" style="visibility:hidden" class="mdc-dialog" role="alertdialog" aria-labelledby="account-dialog-label" aria-describedby="account-dialog-description">
@@ -588,11 +594,13 @@
                 <button type="button" class="mdc-button mdc-snackbar__action-button"></button>
             </div>
         </div>
+        <script src="https://apis.google.com/js/platform.js" async defer></script>
         <script src="https://www.gstatic.com/firebasejs/4.0.0/firebase.js"></script>
         <script src="//unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+        <!--OPTIONAL AND UNRELATED SOCIAL MEDIA BUTTONS BELOW-->
         <script src="//apis.google.com/js/plusone.js"></script>
-        <script src="https://apis.google.com/js/platform.js" async defer></script>
         <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+        <!--OPTIONAL AND UNRELATED SOCIAL MEDIA BUTTONS BELOW-->
         <script>
           // Initialize Firebase
           var config = {

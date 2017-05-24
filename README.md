@@ -5,6 +5,7 @@
 A [Firebase Authentication (v4)](https://firebase.google.com/products/auth/) with [Material Components](//material.io/components) user interface, UI. Sign in with a token from your favorite social media platform or via email. 
 
 <img src="https://github.com/rhroyston/rhroyston.github.io/blob/master/firebase-v4-auth-screenshots.png" alt="screenshot" style="max-width:80%">
+
 #### Features
 
  - Single HTML file
@@ -25,7 +26,7 @@ A [Firebase Authentication (v4)](https://firebase.google.com/products/auth/) wit
 
 ### Installation
 
-The easiest way to install this example is to clone or download it.
+The public folder contains the single index.html file. From the Firebase console, create a Firebase project.  Under the Overview section click on "Add Firebase to your web app".
 
 ### Contribute
 
