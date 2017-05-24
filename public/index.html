@@ -904,13 +904,6 @@
                 providers[i].addEventListener("click", fireAuth);
             }
         }
-        //   accountDialog.listen('MDCDialog:accept', function(e) {
-        //       console.log('accepted and this dsa = ' + this.dataset.action);
-        //       if (this.dataset.action === "signin") {
-        //           console.log(doc.getElementById("email-input").value);
-        //           //registerPasswordUser(email,displayName,password,photoURL)
-        //       }
-        //   });
         accountDialog.listen('MDCDialog:cancel', function() {
             hideAccountSections();
         });
