@@ -18,8 +18,8 @@ A [Firebase Authentication (v4)](https://firebase.google.com/products/auth/) wit
    - Material Components UI
    - photoURL resolution upgrades
    - Account deletion safeguard switch
-   - Simple standard CSS flexbox based
-   - 15fps flex display reset viewport observer [credit:MDN Resize](https://developer.mozilla.org/en-US/docs/Web/Events/resize)
+   - Simple standard CSS flexbox layout
+   - X-axis scroll suppression on phone viewports
  - [Gravatar](//gravatar.com) fallback for all accounts with an email address
  - Vanilla, easy-to-read JavaScript / ECMA Script
    - Promise based functions aligned with Firebase documentation
