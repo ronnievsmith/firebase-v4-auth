@@ -481,7 +481,11 @@
         <!--OPTIONAL AND UNRELATED SOCIAL MEDIA BUTTONS ABOVE-->
         <p><a href="//rack.pub" class="clean-anchor">- Ron Royston</a></p>
     </main>
-    <aside id="account-dialog" style="visibility:hidden" class="mdc-dialog" role="alertdialog" aria-labelledby="account-dialog-label" aria-describedby="account-dialog-description">
+    <aside  id="account-dialog" 
+            class="mdc-dialog" 
+            role="alertdialog" 
+            aria-labelledby="account-dialog-label" 
+            aria-describedby="account-dialog-description">
         <div class="mdc-dialog__surface">
             <header class="mdc-dialog__header">
                 <h2 id="account-dialog-label" class="mdc-dialog__header__title mdc-typography--adjust-margin">
@@ -491,23 +495,24 @@
                     <i class="material-icons" id="account-settings-icon">settings</i>
                 </div>
             </header>
+            
             <section class="mdc-dialog__body flex row flex-center">
                 <!-- Provider Buttons -->
                 <section id="providers" class="hidden">
                     <div id="email" class="provider mdc-typography--subheading2 mdc-ripple-surface" tabindex="0">email</div>
-                    <div id="facebook" class="provider mdc-typography--subheading2 mdc-ripple-surface">facebook</div>
-                    <div id="google" class="provider mdc-typography--subheading2 mdc-ripple-surface">google</div>
-                    <div id="twitter" class="provider mdc-typography--subheading2 mdc-ripple-surface">twitter</div>
+                    <div id="facebook" class="provider mdc-typography--subheading2 mdc-ripple-surface" tabindex="1">facebook</div>
+                    <div id="google" class="provider mdc-typography--subheading2 mdc-ripple-surface" tabindex="2">google</div>
+                    <div id="twitter" class="provider mdc-typography--subheading2 mdc-ripple-surface" tabindex="3">twitter</div>
                 </section>
                 <!-- Password Provider Signin -->
                 <section id="credentials" class="hidden">
                     <div class="mdc-textfield account-email">
-                        <input type="text" id="username" class="mdc-textfield__input" required>
+                        <input type="text" id="username" class="mdc-textfield__input" required tabindex="0">
                         <label class="mdc-textfield__label" for="username">email</label>
                     </div>
                     <br>
                     <div class="mdc-textfield account-email">
-                        <input type="password" id="password" class="mdc-textfield__input" required>
+                        <input type="password" id="password" class="mdc-textfield__input" required tabindex="1">
                         <label class="mdc-textfield__label" for="password">password</label>
                     </div>
                     <div>
@@ -605,7 +610,7 @@
                 </section>
             </section>
             <footer class="mdc-dialog__footer">
-                <button id="account-cancel" type="button" class="mdc-button mdc-dialog__footer__button mdc-dialog__footer__button--cancel">Cancel</button>
+                <button id="account-cancel" type="button" class="mdc-button mdc-dialog__footer__button mdc-dialog__footer__button--cancel" tabindex="0">Cancel</button>
                 <button id="complete-delete-submit" type="button" class="mdc-button red-text hidden" disabled>Delete Account</button>
                 <button id="display-name-submit" type="button" class="mdc-button hidden">Submit</button>
                 <button id="email-submit" type="button" class="mdc-button hidden" disabled>Submit</button>
@@ -615,10 +620,12 @@
         </div>
         <div class="mdc-dialog__backdrop"></div>
     </aside>
-    <aside id="arg-dialog" style="visibility:hidden" class="mdc-dialog" role="alertdialog" aria-labelledby="account-dialog-label" aria-describedby="arg-dialog-description">
+    
+    <aside id="arg-dialog" class="mdc-dialog" role="alertdialog" aria-labelledby="arg-dialog-label" aria-describedby="arg-dialog-description">
+        
         <div class="mdc-dialog__surface">
             <header class="mdc-dialog__header">
-                <h2 id="account-dialog-label" class="mdc-dialog__header__title mdc-typography--adjust-margin">
+                <h2 id="arg-dialog-label" class="mdc-dialog__header__title mdc-typography--adjust-margin">
                     Account
                 </h2>
             </header>
@@ -637,12 +644,13 @@
                 </section>
             </section>
             <footer class="mdc-dialog__footer">
-                <button id="arg-cancel" type="button" class="mdc-button mdc-dialog__footer__button mdc-dialog__footer__button--cancel">Cancel</button>
+                <button id="arg-cancel" type="button" class="mdc-button mdc-dialog__footer__button mdc-dialog__footer__button--cancel" tabindex="0">Cancel</button>
                 <button id="arg-submit" type="button" class="mdc-button" disabled>Submit</button>
             </footer>
         </div>
-        <div class="mdc-dialog__backdrop blue"></div>
+        <div class="mdc-dialog__backdrop"></div>
     </aside>
+    
     <div class="mdc-snackbar" aria-live="assertive" aria-atomic="true" aria-hidden="true">
         <div class="mdc-snackbar__text"></div>
         <div class="mdc-snackbar__action-wrapper">
@@ -655,7 +663,7 @@
     <!--OPTIONAL AND UNRELATED SOCIAL MEDIA BUTTONS BELOW-->
     <script src="//apis.google.com/js/plusone.js"></script>
     <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-    <!--OPTIONAL AND UNRELATED SOCIAL MEDIA BUTTONS BELOW-->
+    <!--OPTIONAL AND UNRELATED SOCIAL MEDIA BUTTONS ABOVE-->
     <script>
         // Initialize Firebase
         var config = {
@@ -795,9 +803,10 @@
             accountDialog.close();
         });
         doc.getElementById("sign-in-button").addEventListener('click', function(evt) {
-            accountDialog.lastFocusedTarget = evt.target;
             hideAccountSections();
             doc.getElementById("providers").classList.remove("hidden");
+            doc.getElementById("account-cancel").focus();
+            accountDialog.lastFocusedTarget = evt.target;
             accountDialog.show();
         });
         doc.getElementById("email-anchor").addEventListener('click', function(evt) {
